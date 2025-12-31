@@ -1,0 +1,262 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="generator" content="VuePress 2.0.0-rc.26" /><meta name="theme" content="VuePress Theme Plume 1.0.0-rc.184" /><script id="check-mac-os">document.documentElement.classList.toggle('mac', /Mac|iPhone|iPod|iPad/i.test(navigator.platform))</script><script id="check-dark-mode">;(function () {const um= localStorage.getItem('vuepress-theme-appearance') || 'auto';const sm = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;const isDark = um === 'dark' || (um !== 'light' && sm);document.documentElement.dataset.theme = isDark ? 'dark' : 'light';})();</script><link rel="icon" type="image/png" href="https://theme-plume.vuejs.press/favicon-32x32.png"><title>Spark操作Hive误区 | 碎白的项目垃圾桶</title><meta name="description" content="碎白的小站"><link rel="preload" href="/assets/style-OAecHWll.css" as="style"><link rel="stylesheet" href="/assets/style-OAecHWll.css"><link rel="modulepreload" href="/assets/app-B15BG5XE.js"><link rel="modulepreload" href="/assets/index.html-DHk1Al6x.js"></head><body><div id="app"><!--[--><!--[--><div class="theme-plume vp-layout" vp-container data-v-d6944b44><!--[--><!--[--><!--]--><!--[--><span tabindex="-1" data-v-6e18bdc4></span><a href="#VPContent" class="vp-skip-link visually-hidden" data-v-6e18bdc4> Skip to content </a><!--]--><!----><header class="vp-nav" data-v-d6944b44 data-v-be91c81d><div class="vp-navbar" vp-navbar data-v-be91c81d data-v-a6b1698a><div class="wrapper" data-v-a6b1698a><div class="container" data-v-a6b1698a><div class="title" data-v-a6b1698a><div class="vp-navbar-title" data-v-a6b1698a data-v-6cb3dbae><a class="vp-link link no-icon title" href="/" data-v-6cb3dbae><!--[--><!--[--><!--]--><!--[--><!--[--><!--[--><img class="vp-image dark logo" style="" src="https://theme-plume.vuejs.press/plume.png" alt data-v-cf059d2d><!--]--><!--[--><img class="vp-image light logo" style="" src="https://theme-plume.vuejs.press/plume.png" alt data-v-cf059d2d><!--]--><!--]--><!--]--><span data-v-6cb3dbae>碎白的项目垃圾桶</span><!--[--><!--]--><!--]--></a></div></div><div class="content" data-v-a6b1698a><div class="content-body" data-v-a6b1698a><!--[--><!--]--><div class="vp-navbar-search search" data-v-a6b1698a><div class="search-wrapper" data-v-7ddd055b><!----><div id="local-search" data-v-7ddd055b><button type="button" class="mini-search mini-search-button" aria-label="搜索文档" data-v-7ddd055b><span class="mini-search-button-container"><span class="mini-search-search-icon vpi-mini-search" aria-label="search icon"></span><span class="mini-search-button-placeholder">搜索文档</span></span><span class="mini-search-button-keys"><kbd class="mini-search-button-key"></kbd><kbd class="mini-search-button-key">K</kbd></span></button></div></div></div><!--[--><!--]--><nav aria-labelledby="main-nav-aria-label" class="vp-navbar-menu menu" data-v-a6b1698a data-v-435cd003><span id="main-nav-aria-label" class="visually-hidden" data-v-435cd003>Main Navigation</span><!--[--><!--[--><a class="vp-link link navbar-menu-link" href="/" tabindex="0" data-v-435cd003 data-v-4a9861ab><!--[--><!----><span data-v-4a9861ab>首页</span><!----><!--]--></a><!--]--><!--[--><a class="vp-link link navbar-menu-link" href="/blog/" tabindex="0" data-v-435cd003 data-v-4a9861ab><!--[--><!----><span data-v-4a9861ab>博客</span><!----><!--]--></a><!--]--><!--[--><a class="vp-link link navbar-menu-link" href="/blog/tags/" tabindex="0" data-v-435cd003 data-v-4a9861ab><!--[--><!----><span data-v-4a9861ab>标签</span><!----><!--]--></a><!--]--><!--[--><a class="vp-link link navbar-menu-link" href="/blog/archives/" tabindex="0" data-v-435cd003 data-v-4a9861ab><!--[--><!----><span data-v-4a9861ab>归档</span><!----><!--]--></a><!--]--><!--[--><div class="vp-flyout vp-navbar-menu-group" data-v-435cd003 data-v-1957df10><button type="button" class="button" aria-haspopup="true" aria-expanded="false" data-v-1957df10><span class="text" data-v-1957df10><!----><!----><span data-v-1957df10>笔记</span><!----><span class="vpi-chevron-down text-icon" data-v-1957df10></span></span></button><div class="menu" data-v-1957df10><div class="vp-menu" data-v-1957df10 data-v-822823be><div class="items" data-v-822823be><!--[--><!--[--><div class="vp-menu-link" data-v-822823be data-v-1519cc0a><a class="vp-link link" href="/demo/" data-v-1519cc0a><!--[--><!----> 示例 <!----><!--]--></a></div><!--]--><!--]--></div><!--[--><!--]--></div></div></div><!--]--><!--]--></nav><!--[--><!--]--><div class="vp-flyout vp-navbar-translations translations" data-v-a6b1698a data-v-08fe5af5 data-v-1957df10><button type="button" class="button" aria-haspopup="true" aria-expanded="false" aria-label="选择语言" data-v-1957df10><span class="text" data-v-1957df10><!----><span class="vpi-languages option-icon" data-v-1957df10></span><!----><!----><span class="vpi-chevron-down text-icon" data-v-1957df10></span></span></button><div class="menu" data-v-1957df10><div class="vp-menu" data-v-1957df10 data-v-822823be><!----><!--[--><!--[--><div class="items" data-v-08fe5af5><p class="title" data-v-08fe5af5>简体中文</p><!--[--><div class="vp-menu-link" data-v-08fe5af5 data-v-1519cc0a><a class="vp-link link" href="/en/blog/" data-v-1519cc0a><!--[--><!----> English <!----><!--]--></a></div><!--]--></div><!--]--><!--]--></div></div></div><div class="vp-navbar-appearance appearance" data-v-a6b1698a data-v-4356c817><button class="vp-switch vp-switch-appearance" type="button" role="switch" title aria-checked="false" data-v-4356c817 data-v-451b432c data-v-020f8dab><span class="check" data-v-020f8dab><span class="icon" data-v-020f8dab><!--[--><span class="vpi-sun sun" data-v-451b432c></span><span class="vpi-moon moon" data-v-451b432c></span><!--]--></span></span></button></div><div class="vp-social-links vp-navbar-social-links social-links" data-v-a6b1698a data-v-f7c9ac78 data-v-b355f6f3><!--[--><a class="vp-social-link no-icon" href="/" aria-label="github" title="github" target="_blank" rel="noopener" data-v-b355f6f3 data-v-b3559fb6><!----></a><!--]--></div><div class="vp-flyout vp-navbar-extra extra" data-v-a6b1698a data-v-54bd666f data-v-1957df10><button type="button" class="button" aria-haspopup="true" aria-expanded="false" aria-label="extra navigation" data-v-1957df10><span class="vpi-more-horizontal icon" data-v-1957df10></span></button><div class="menu" data-v-1957df10><div class="vp-menu" data-v-1957df10 data-v-822823be><!----><!--[--><!--[--><div class="group translations" data-v-54bd666f><p class="trans-title" data-v-54bd666f>简体中文</p><!--[--><div class="vp-menu-link" data-v-54bd666f data-v-1519cc0a><a class="vp-link link" href="/en/blog/" data-v-1519cc0a><!--[--><!----> English <!----><!--]--></a></div><!--]--></div><div class="group" data-v-54bd666f><div class="item appearance" data-v-54bd666f><p class="label" data-v-54bd666f>外观</p><div class="appearance-action" data-v-54bd666f><button class="vp-switch vp-switch-appearance" type="button" role="switch" title aria-checked="false" data-v-54bd666f data-v-451b432c data-v-020f8dab><span class="check" data-v-020f8dab><span class="icon" data-v-020f8dab><!--[--><span class="vpi-sun sun" data-v-451b432c></span><span class="vpi-moon moon" data-v-451b432c></span><!--]--></span></span></button></div></div></div><div class="group" data-v-54bd666f><div class="item social-links" data-v-54bd666f><div class="vp-social-links social-links-list" data-v-54bd666f data-v-b355f6f3><!--[--><a class="vp-social-link no-icon" href="/" aria-label="github" title="github" target="_blank" rel="noopener" data-v-b355f6f3 data-v-b3559fb6><!----></a><!--]--></div></div></div><!--]--><!--]--></div></div></div><!--[--><!--]--><button type="button" class="vp-navbar-hamburger hamburger" aria-label="mobile navigation" aria-expanded="false" aria-controls="nav-screen" data-v-a6b1698a data-v-3b29ae67><span class="container" data-v-3b29ae67><span class="top" data-v-3b29ae67></span><span class="middle" data-v-3b29ae67></span><span class="bottom" data-v-3b29ae67></span></span></button></div></div></div></div><div class="divider" data-v-a6b1698a><div class="divider-line" data-v-a6b1698a></div></div></div><!----></header><!----><!----><!--[--><div id="VPContent" vp-content class="vp-content" data-v-d6944b44 data-v-979fa92e><div class="vp-doc-container is-posts" data-v-979fa92e data-v-679644c4><!--[--><!--]--><div class="container" data-v-679644c4><!----><div class="content" data-v-679644c4><div class="content-container" data-v-679644c4><!--[--><!--]--><main class="main" data-v-679644c4><!----><!--[--><!--]--><!--[--><div class="vp-doc-title" data-v-b5280fa6><!--[--><!--]--><h1 class="page-title" data-v-b5280fa6><!----> Spark操作Hive误区 <!----></h1><!--[--><!--]--></div><div class="vp-doc-meta" data-v-b5280fa6><!--[--><!--]--><p class="reading-time" data-v-b5280fa6><span class="vpi-books icon" data-v-b5280fa6></span><span data-v-b5280fa6>约 1276 字</span><span data-v-b5280fa6>大约 4 分钟</span></p><!----><!--[--><!--]--><p class="create-time" data-v-b5280fa6><span class="vpi-clock icon" data-v-b5280fa6></span><span data-v-b5280fa6>2023-04-16</span></p></div><!--]--><!--[--><!--]--><!--[--><div class="_blog_spark_ external-link-icon-enabled vp-doc plume-content" vp-content data-v-679644c4><!--[--><!--]--><div data-v-679644c4><p>最近在筹备大数据竞赛，在训练的时候出现了挺多问题，现在统一总结一下</p><h1 id="出现的问题" tabindex="-1"><a class="header-anchor" href="#出现的问题"><span>出现的问题</span></a></h1><p>首先，新版IDEA不能从正常的创建项目哪里创建Maven项目（官方的打包方法为sbt,所以正在逐渐淘汰Maven）</p><p>但是训练时候依旧需要使用Maven去构建项目，所以经查资料创建方法如下</p><h3 id="_1-首先创建一个scala项目-构建系统选择intellij-选择创建。" tabindex="-1"><a class="header-anchor" href="#_1-首先创建一个scala项目-构建系统选择intellij-选择创建。"><span>1.首先创建一个Scala项目，构建系统选择Intellij，选择创建。</span></a></h3><p><img src="https://smallway.oss-cn-beijing.aliyuncs.com/{Y}{M}{D}-{rand}image-20230416102058756.png" alt="image-20230416102058756"></p><h3 id="_2-右击该项目-选择添加框架支持" tabindex="-1"><a class="header-anchor" href="#_2-右击该项目-选择添加框架支持"><span>2.右击该项目，选择添加框架支持</span></a></h3><p><img src="https://smallway.oss-cn-beijing.aliyuncs.com/{Y}{M}{D}-{rand}image-20230416102341774.png" alt="image-20230416102341774"></p><h3 id="_3-勾选maven-点击确定" tabindex="-1"><a class="header-anchor" href="#_3-勾选maven-点击确定"><span>3.勾选Maven，点击确定</span></a></h3><p><img src="https://smallway.oss-cn-beijing.aliyuncs.com/{Y}{M}{D}-{rand}image-20230416102439511.png" alt="image-20230416102439511"></p><p>4.此时已经创建好pom.xml文件了</p><p><img src="https://smallway.oss-cn-beijing.aliyuncs.com/{Y}{M}{D}-{rand}image-20230416102540641.png" alt="image-20230416102540641"></p><p>这时就可以添加对应的依赖了</p><p>拉取对应的依赖</p><p>依赖文件如下</p><div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212;"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code"><code class="language-"><span class="line"><span>&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span>
+<span class="line"><span>         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span>
+<span class="line"><span>         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;</span></span>
+<span class="line"><span>    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    &lt;groupId&gt;top.smallway&lt;/groupId&gt;</span></span>
+<span class="line"><span>    &lt;artifactId&gt;sparkapp&lt;/artifactId&gt;</span></span>
+<span class="line"><span>    &lt;version&gt;1.0&lt;/version&gt;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    &lt;properties&gt;</span></span>
+<span class="line"><span>        &lt;scala.version&gt;2.12.16&lt;/scala.version&gt;</span></span>
+<span class="line"><span>    &lt;/properties&gt;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    &lt;dependencies&gt;</span></span>
+<span class="line"><span>        &lt;!--scala--&gt;</span></span>
+<span class="line"><span>        &lt;dependency&gt;</span></span>
+<span class="line"><span>            &lt;groupId&gt;org.scala-lang&lt;/groupId&gt;</span></span>
+<span class="line"><span>            &lt;artifactId&gt;scala-library&lt;/artifactId&gt;</span></span>
+<span class="line"><span>            &lt;version&gt;${scala.version}&lt;/version&gt;</span></span>
+<span class="line"><span>        &lt;/dependency&gt;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        &lt;!--spark--&gt;</span></span>
+<span class="line"><span>        &lt;dependency&gt;</span></span>
+<span class="line"><span>            &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;</span></span>
+<span class="line"><span>            &lt;artifactId&gt;spark-core_2.12&lt;/artifactId&gt;</span></span>
+<span class="line"><span>            &lt;version&gt;3.1.2&lt;/version&gt;</span></span>
+<span class="line"><span>        &lt;/dependency&gt;</span></span>
+<span class="line"><span>        &lt;dependency&gt;</span></span>
+<span class="line"><span>            &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;</span></span>
+<span class="line"><span>            &lt;artifactId&gt;spark-sql_2.12&lt;/artifactId&gt;</span></span>
+<span class="line"><span>            &lt;version&gt;3.1.2&lt;/version&gt;</span></span>
+<span class="line"><span>        &lt;/dependency&gt;</span></span>
+<span class="line"><span>        &lt;dependency&gt;</span></span>
+<span class="line"><span>            &lt;groupId&gt;mysql&lt;/groupId&gt;</span></span>
+<span class="line"><span>            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span></span>
+<span class="line"><span>            &lt;version&gt;8.0.32&lt;/version&gt;</span></span>
+<span class="line"><span>        &lt;/dependency&gt;</span></span>
+<span class="line"><span>        &lt;!--        spark-hive--&gt;</span></span>
+<span class="line"><span>        &lt;dependency&gt;</span></span>
+<span class="line"><span>            &lt;groupId&gt;org.apache.spark&lt;/groupId&gt;</span></span>
+<span class="line"><span>            &lt;artifactId&gt;spark-hive_2.12&lt;/artifactId&gt;</span></span>
+<span class="line"><span>            &lt;version&gt;3.1.2&lt;/version&gt;</span></span>
+<span class="line"><span>        &lt;/dependency&gt;</span></span>
+<span class="line"><span>        &lt;!--        hive--&gt;</span></span>
+<span class="line"><span>        &lt;dependency&gt;</span></span>
+<span class="line"><span>            &lt;groupId&gt;org.apache.hive&lt;/groupId&gt;</span></span>
+<span class="line"><span>            &lt;artifactId&gt;hive-jdbc&lt;/artifactId&gt;</span></span>
+<span class="line"><span>            &lt;version&gt;3.1.2&lt;/version&gt;</span></span>
+<span class="line"><span>        &lt;/dependency&gt;</span></span>
+<span class="line"><span>        &lt;dependency&gt;</span></span>
+<span class="line"><span>            &lt;groupId&gt;org.apache.hive&lt;/groupId&gt;</span></span>
+<span class="line"><span>            &lt;artifactId&gt;hive-exec&lt;/artifactId&gt;</span></span>
+<span class="line"><span>            &lt;version&gt;3.1.2&lt;/version&gt;</span></span>
+<span class="line"><span>        &lt;/dependency&gt;</span></span>
+<span class="line"><span>        &lt;dependency&gt;</span></span>
+<span class="line"><span>            &lt;groupId&gt;com.github.housepower&lt;/groupId&gt;</span></span>
+<span class="line"><span>            &lt;artifactId&gt;clickhouse-integration-spark_2.12&lt;/artifactId&gt;</span></span>
+<span class="line"><span>            &lt;version&gt;2.5.4&lt;/version&gt;</span></span>
+<span class="line"><span>        &lt;/dependency&gt;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        &lt;dependency&gt;</span></span>
+<span class="line"><span>            &lt;groupId&gt;org.apache.hadoop&lt;/groupId&gt;</span></span>
+<span class="line"><span>            &lt;artifactId&gt;hadoop-auth&lt;/artifactId&gt;</span></span>
+<span class="line"><span>            &lt;version&gt;3.2.1&lt;/version&gt;</span></span>
+<span class="line"><span>        &lt;/dependency&gt;</span></span>
+<span class="line"><span>        &lt;dependency&gt;</span></span>
+<span class="line"><span>            &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;</span></span>
+<span class="line"><span>            &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;</span></span>
+<span class="line"><span>            &lt;version&gt;2.10.0&lt;/version&gt;</span></span>
+<span class="line"><span>        &lt;/dependency&gt;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>        &lt;dependency&gt;</span></span>
+<span class="line"><span>            &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;</span></span>
+<span class="line"><span>            &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;</span></span>
+<span class="line"><span>            &lt;version&gt;2.10.0&lt;/version&gt;</span></span>
+<span class="line"><span>        &lt;/dependency&gt;</span></span>
+<span class="line"><span>    &lt;/dependencies&gt;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    &lt;build&gt;</span></span>
+<span class="line"><span>        &lt;sourceDirectory&gt;src/main/scala&lt;/sourceDirectory&gt;</span></span>
+<span class="line"><span>        &lt;testSourceDirectory&gt;src/test/scala&lt;/testSourceDirectory&gt;</span></span>
+<span class="line"><span>        &lt;plugins&gt;</span></span>
+<span class="line"><span>            &lt;plugin&gt;</span></span>
+<span class="line"><span>                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span></span>
+<span class="line"><span>                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span></span>
+<span class="line"><span>                &lt;configuration&gt;</span></span>
+<span class="line"><span>                    &lt;source&gt;1.8&lt;/source&gt;</span></span>
+<span class="line"><span>                    &lt;target&gt;1.8&lt;/target&gt;</span></span>
+<span class="line"><span>                &lt;/configuration&gt;</span></span>
+<span class="line"><span>            &lt;/plugin&gt;</span></span>
+<span class="line"><span>        &lt;/plugins&gt;</span></span>
+<span class="line"><span>    &lt;/build&gt;</span></span>
+<span class="line"><span>&lt;/project&gt;</span></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>此时重新拉取Maven即可</p><p>编写Scala代码EltUtil.scala类</p><div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212;"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code"><code class="language-"><span class="line"><span>import org.apache.spark.sql._</span></span>
+<span class="line"><span>import org.apache.spark.sql.jdbc.{ClickHouseDialect, JdbcDialects}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>// ELT工具类</span></span>
+<span class="line"><span>object EltUtil {</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  // extract from mysql</span></span>
+<span class="line"><span>  /**</span></span>
+<span class="line"><span>   * @param spark      SparkSession实例</span></span>
+<span class="line"><span>   * @param jdbcMap    要加载的JDBC配置项</span></span>
+<span class="line"><span>   *</span></span>
+<span class="line"><span>   * @return           返回一个DataFrame（Dataset[Row]）</span></span>
+<span class="line"><span>   *</span></span>
+<span class="line"><span>   */</span></span>
+<span class="line"><span>  def extractFromJDBC(spark: SparkSession, jdbcMap:Map[String,String]): Dataset[Row] = {</span></span>
+<span class="line"><span>    // 读取JDBC数据源，创建DataFrame</span></span>
+<span class="line"><span>    val df = spark</span></span>
+<span class="line"><span>      .read</span></span>
+<span class="line"><span>      .format(&quot;jdbc&quot;)</span></span>
+<span class="line"><span>      .options(jdbcMap)</span></span>
+<span class="line"><span>      .load()</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    // 返回</span></span>
+<span class="line"><span>    df</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  // load to hive</span></span>
+<span class="line"><span>  /**</span></span>
+<span class="line"><span>   * @param spark</span></span>
+<span class="line"><span>   * @param df       要装载到Hive中的DataFrame</span></span>
+<span class="line"><span>   * @param db       要装载到的Hive数据库</span></span>
+<span class="line"><span>   * @param tb       要装载到的Hive ODS表</span></span>
+<span class="line"><span>   * @param partitionColumn 指定分区列</span></span>
+<span class="line"><span>   *</span></span>
+<span class="line"><span>   * @return unit</span></span>
+<span class="line"><span>   */</span></span>
+<span class="line"><span>  def loadToHive(spark: SparkSession, df:Dataset[Row], hiveMap: Map[String,String]):Unit = {</span></span>
+<span class="line"><span>    val database = hiveMap(&quot;db&quot;)       // 要写入的数据库</span></span>
+<span class="line"><span>    val table = hiveMap(&quot;tb&quot;)          // 要写入的数据表</span></span>
+<span class="line"><span>    val partitionColumn = hiveMap.get(&quot;partitionColumn&quot;)  // 分区列</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    spark.sql(s&quot;use $database&quot;)          // 打开指定数据库，这里使用了字符串插值</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    // 有的表需要分区，有的不需要。这里使用模式匹配来分别处理</span></span>
+<span class="line"><span>    partitionColumn match{</span></span>
+<span class="line"><span>      case Some(column) =&gt;</span></span>
+<span class="line"><span>        df.write</span></span>
+<span class="line"><span>          .format(&quot;parquet&quot;)</span></span>
+<span class="line"><span>          .mode(&quot;overwrite&quot;)      // 覆盖</span></span>
+<span class="line"><span>          .partitionBy(column)    // 指定分区</span></span>
+<span class="line"><span>          .saveAsTable(table)</span></span>
+<span class="line"><span>      case None =&gt;</span></span>
+<span class="line"><span>        df.write</span></span>
+<span class="line"><span>          .format(&quot;parquet&quot;)</span></span>
+<span class="line"><span>          .mode(&quot;overwrite&quot;)      // 覆盖</span></span>
+<span class="line"><span>          .saveAsTable(table)     // saveAsTable()方法：会将DataFrame数据保存到Hive表中</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  // 增量写入方法</span></span>
+<span class="line"><span>  def appendToHive(spark: SparkSession, df:Dataset[Row], hiveMap: Map[String,String]):Unit = {</span></span>
+<span class="line"><span>    val database = hiveMap(&quot;db&quot;)       // 要写入的数据库</span></span>
+<span class="line"><span>    val table = hiveMap(&quot;tb&quot;)          // 要写入的数据表</span></span>
+<span class="line"><span>    val partitionColumn = hiveMap.get(&quot;partitionColumn&quot;)  // 分区列</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    spark.sql(s&quot;use $database&quot;)          // 打开指定数据库，这里使用了字符串插值</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    // 有的表需要分区，有的不需要。这里使用模式匹配来分别处理</span></span>
+<span class="line"><span>    partitionColumn match{</span></span>
+<span class="line"><span>      case Some(column) =&gt;</span></span>
+<span class="line"><span>        df.write</span></span>
+<span class="line"><span>          .format(&quot;parquet&quot;)</span></span>
+<span class="line"><span>          .mode(&quot;append&quot;)         // 追加</span></span>
+<span class="line"><span>          .partitionBy(column)    // 指定分区</span></span>
+<span class="line"><span>          .saveAsTable(table)</span></span>
+<span class="line"><span>      case None =&gt;</span></span>
+<span class="line"><span>        df.write</span></span>
+<span class="line"><span>          .format(&quot;parquet&quot;)</span></span>
+<span class="line"><span>          .mode(&quot;append&quot;)         // 追加</span></span>
+<span class="line"><span>          .saveAsTable(table)     // saveAsTable()方法：会将DataFrame数据保存到Hive表中</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  // 定义一个函数，用来将分析结果导出到mysql中</span></span>
+<span class="line"><span>  /**</span></span>
+<span class="line"><span>   *</span></span>
+<span class="line"><span>   * @param db    目标数据表</span></span>
+<span class="line"><span>   * @param df    分析结果集</span></span>
+<span class="line"><span>   */</span></span>
+<span class="line"><span>  import org.apache.spark.sql._</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  import java.util.Properties</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  def exportToMysql(df:Dataset[Row], tb:String) = {</span></span>
+<span class="line"><span>    val DB_URL= &quot;jdbc:mysql://localhost:3306/shtd_result?useSSL=false&quot;       // 数据库连接url，请将localhost替换为服务器所在IP</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    // 下面创建一个prop 变量用来保存JDBC 连接参数</span></span>
+<span class="line"><span>    val props = new Properties()</span></span>
+<span class="line"><span>    props.put(&quot;user&quot;, &quot;root&quot;)        					// 表示用户名是root</span></span>
+<span class="line"><span>    props.put(&quot;password&quot;, &quot;admin&quot;)   				    // 表示密码是hadoop</span></span>
+<span class="line"><span>    props.put(&quot;driver&quot;,&quot;com.mysql.jdbc.Driver&quot;) 		// 表示驱动程序</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    df.write.mode(&quot;overwrite&quot;).jdbc(DB_URL, tb, props)</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  // 定义一个函数，用来将分析结果导出到clickhouse中</span></span>
+<span class="line"><span>  /**</span></span>
+<span class="line"><span>   *</span></span>
+<span class="line"><span>   * @param db    目标数据表（形式：db.tb）</span></span>
+<span class="line"><span>   * @param df    分析结果集</span></span>
+<span class="line"><span>   */</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  def exportToClickHouse(df:Dataset[Row], table:String) = {</span></span>
+<span class="line"><span>    // 注册ClickHouseDialect</span></span>
+<span class="line"><span>    JdbcDialects.registerDialect(ClickHouseDialect)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    // clickhouse驱动程序和连接信息</span></span>
+<span class="line"><span>    val ckDriver = &quot;com.github.housepower.jdbc.ClickHouseDriver&quot; // 驱动程序</span></span>
+<span class="line"><span>    val ckUrl = &quot;jdbc:clickhouse://localhost:9000&quot;  // 数据库连接url，请将localhost替换为服务器所在IP</span></span>
+<span class="line"><span>    val ckUser = &quot;default&quot;</span></span>
+<span class="line"><span>    val ckPassword = &quot;&quot;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    // 写出</span></span>
+<span class="line"><span>    try {</span></span>
+<span class="line"><span>      val props = new java.util.Properties</span></span>
+<span class="line"><span>      props.put(&quot;driver&quot;, ckDriver)</span></span>
+<span class="line"><span>      props.put(&quot;user&quot;, ckUser)</span></span>
+<span class="line"><span>      props.put(&quot;password&quot;, ckPassword)</span></span>
+<span class="line"><span>      df.write</span></span>
+<span class="line"><span>        .mode(&quot;append&quot;)</span></span>
+<span class="line"><span>        .option(&quot;batchsize&quot;, &quot;10000&quot;)</span></span>
+<span class="line"><span>        .option(&quot;isolationLevel&quot;, &quot;NONE&quot;)</span></span>
+<span class="line"><span>        .option(&quot;numPartitions&quot;, &quot;1&quot;)</span></span>
+<span class="line"><span>        .jdbc(ckUrl, table, props)</span></span>
+<span class="line"><span>    } catch {</span></span>
+<span class="line"><span>      case e:Exception =&gt;</span></span>
+<span class="line"><span>        println(&quot;catch and ignore!&quot;)</span></span>
+<span class="line"><span>        println(e)</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>}</span></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>在主方法中调用即可</p><div class="language- line-numbers-mode" data-highlighter="shiki" data-ext="" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212;"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code"><code class="language-"><span class="line"><span>import org.apache.spark.sql.SparkSession</span></span>
+<span class="line"><span>import org.apache.spark.sql.functions.lit</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>object spark {</span></span>
+<span class="line"><span>  def main(args: Array[String]): Unit = {</span></span>
+<span class="line"><span>    val spark = SparkSession.builder()</span></span>
+<span class="line"><span>      .master(&quot;local[*]&quot;)</span></span>
+<span class="line"><span>      .appName(&quot;sparkapp&quot;)</span></span>
+<span class="line"><span>      .enableHiveSupport()</span></span>
+<span class="line"><span>      .getOrCreate()</span></span>
+<span class="line"><span>    val stock_customer_info_sql = &quot;select * from customer_inf where modified_time &lt;= &#39;2022-08-20 23:59:59&#39;&quot;</span></span>
+<span class="line"><span>    val jdbcMap = Map(</span></span>
+<span class="line"><span>      &quot;url&quot; -&gt; &quot;jdbc:mysql://localhost/database&quot;,</span></span>
+<span class="line"><span>      &quot;user&quot; -&gt; &quot;user&quot;,</span></span>
+<span class="line"><span>      &quot;password&quot; -&gt; &quot;password&quot;,</span></span>
+<span class="line"><span>      &quot;query&quot; -&gt; stock_customer_info_sql,</span></span>
+<span class="line"><span>    )</span></span>
+<span class="line"><span>    val dataDF = EltUtil.extractFromJDBC(spark, jdbcMap)</span></span>
+<span class="line"><span>    val df12 = dataDF.withColumn(&quot;etl_date&quot;, lit(&quot;20221123&quot;))</span></span>
+<span class="line"><span>    val hiveMap = Map(</span></span>
+<span class="line"><span>      &quot;db&quot; -&gt; &quot;Hive数据库&quot;,</span></span>
+<span class="line"><span>      &quot;tb&quot; -&gt; &quot;Hive数据库中的表&quot;,</span></span>
+<span class="line"><span>      &quot;partitionColumn&quot; -&gt; &quot;列名&quot;</span></span>
+<span class="line"><span>    )</span></span>
+<span class="line"><span>    EltUtil.loadToHive(spark, df12, hiveMap)</span></span>
+<span class="line"><span>    spark.table(&quot;Hive数据库.表名&quot;).show()</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span>}</span></span></code></pre><div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0;"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!----><!----><!----><footer class="vp-doc-footer" data-v-679644c4 data-v-ae74cf58><!--[--><!--]--><!----><div class="contributors" aria-label="Contributors" data-v-ae74cf58><span class="contributors-label" data-v-ae74cf58>贡献者: </span><span class="contributors-info" data-v-ae74cf58><!--[--><!--[--><span class="contributor" data-v-ae74cf58>小白nbfan</span><!----><!--]--><!--]--></span></div><nav class="prev-next" data-v-ae74cf58><div class="pager" data-v-ae74cf58><a class="vp-link link pager-link prev" href="/blog/vue/" data-v-ae74cf58><!--[--><span class="desc" data-v-ae74cf58>上一页</span><span class="title" data-v-ae74cf58><!----><span data-v-ae74cf58>vue入门总结</span></span><!--]--></a></div><div class="pager" data-v-ae74cf58><a class="vp-link link pager-link next" href="/blog/wokeyibuzaixiaoyuan-app/" data-v-ae74cf58><!--[--><span class="desc" data-v-ae74cf58>下一页</span><span class="title" data-v-ae74cf58><!----><span data-v-ae74cf58>我可以不在校园--定位签到移动篇</span></span><!--]--></a></div></nav></footer></div><!--]--></main><!----><!--[--><!--]--></div></div></div><!--[--><!--]--></div></div><!--]--><button type="button" class="vp-back-to-top" aria-label="back to top" data-v-d6944b44 style="display:none;" data-v-90d45323><span class="percent" data-allow-mismatch data-v-90d45323>0%</span><span class="show icon vpi-back-to-top" data-v-90d45323></span><svg aria-hidden="true" data-v-90d45323><circle cx="50%" cy="50%" data-allow-mismatch style="stroke-dasharray:calc(0% - 12.566370614359172px) calc(314.1592653589793% - 12.566370614359172px);" data-v-90d45323></circle></svg></button><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" aria-label="sign down" class="vp-sign-down" aria-hidden="true" data-v-d6944b44 style="display:none;" data-v-f2515d3a><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" data-v-f2515d3a><path d="m19 11l-7 6l-7-6" data-v-f2515d3a></path><path d="m19 5l-7 6l-7-6" opacity="0.6" data-v-f2515d3a></path></g></svg><footer class="vp-footer" vp-footer data-v-d6944b44 data-v-beff070e><!--[--><div class="container" data-v-beff070e><div class="message" data-v-beff070e>Power by <a target="_blank" href="https://v2.vuepress.vuejs.org/">VuePress</a> & <a target="_blank" href="https://theme-plume.vuejs.press">vuepress-theme-plume</a></div><div class="copyright" data-v-beff070e>Copyright © 2023-2025-present 碎白啊</div></div><!--]--></footer><!--[--><!--]--><!--]--></div><!----><!--]--><!--[--><!--]--><!--]--></div><script type="module" src="/assets/app-B15BG5XE.js" defer></script></body></html>
