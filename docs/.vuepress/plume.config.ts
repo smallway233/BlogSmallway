@@ -40,10 +40,11 @@ export default defineThemeConfig({
   // createTime: true, // 是否显示文章创建时间
 
   /* 站点页脚 */
-  // footer: {
-  //   message: 'Power by <a target="_blank" href="https://v2.vuepress.vuejs.org/">VuePress</a> & <a target="_blank" href="https://theme-plume.vuejs.press">vuepress-theme-plume</a>',
-  //   copyright: '',
-  // },
+  footer: {
+    message: 'Power by <a target="_blank" href="https://v2.vuepress.vuejs.org/">VuePress</a> & <a target="_blank" href="https://theme-plume.vuejs.press">vuepress-theme-plume</a>',
+    copyright: 'Copyright © 2023-2025-present 碎白啊',
+  },
+  // 作者：Smallway，2025-12-31
 
   /* 过渡动画 @see https://theme-plume.vuejs.press/config/theme/#transition */
   // transition: {
