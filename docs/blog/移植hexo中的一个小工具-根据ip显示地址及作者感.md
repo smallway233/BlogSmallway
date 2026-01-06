@@ -1,7 +1,7 @@
 ---
 title: "移植Hexo中的一个小工具——根据IP显示地址及作者感言"
 createTime: 2024-02-13 18:04:04
-permalink: /blog/移植hexo中的一个小工具-根据ip显示地址及作者感/
+permalink: /blog/hexo-tool-ip-address/
 categories:
   - 大数据学习
 ---
@@ -50,7 +50,7 @@ categories:
 
 在你想要显示这个小工具的地方填入以下代码
 
-```
+```html
 <div id="welcome-info">
 <script>
 //在这里填入刚才的js代码    

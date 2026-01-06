@@ -18,7 +18,7 @@ import { enNavbar, zhNavbar } from './navbar'
  * @see https://theme-plume.vuejs.press/config/theme/
  */
 export default defineThemeConfig({
-  logo: '/plume.svg',
+  logo: '/avatar.png',
 
   appearance: true,  // 配置 深色模式
 
@@ -59,7 +59,7 @@ export default defineThemeConfig({
        * @see https://theme-plume.vuejs.press/config/theme/#profile
        */
       profile: {
-        avatar: '/plume.svg',
+        avatar: '/avatar.png',
         name: '碎白的项目垃圾桶',
         description: '碎白的小站',
         // circle: true,
@@ -86,7 +86,7 @@ export default defineThemeConfig({
        * @see https://theme-plume.vuejs.press/config/theme/#profile
        */
       profile: {
-        avatar: '/plume.svg',
+        avatar: '/avatar.png',
         name: '碎白的项目垃圾桶',
         description: '碎白的小站',
         // circle: true,

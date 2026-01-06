@@ -14,19 +14,19 @@ categories:
 
 但是训练时候依旧需要使用Maven去构建项目，所以经查资料创建方法如下
 
-### 1.首先创建一个Scala项目，构建系统选择Intellij，选择创建。
+### 首先创建一个Scala项目，构建系统选择Intellij，选择创建。
 
 ![image-20230416102058756](https://smallway.oss-cn-beijing.aliyuncs.com/%7BY%7D%7BM%7D%7BD%7D-%7Brand%7Dimage-20230416102058756.png)
 
-### 2.右击该项目，选择添加框架支持
+### 右击该项目，选择添加框架支持
 
 ![image-20230416102341774](https://smallway.oss-cn-beijing.aliyuncs.com/%7BY%7D%7BM%7D%7BD%7D-%7Brand%7Dimage-20230416102341774.png)
 
-### 3.勾选Maven，点击确定
+### 勾选Maven，点击确定
 
 ![image-20230416102439511](https://smallway.oss-cn-beijing.aliyuncs.com/%7BY%7D%7BM%7D%7BD%7D-%7Brand%7Dimage-20230416102439511.png)
 
-4.此时已经创建好pom.xml文件了
+### 此时已经创建好pom.xml文件了
 
 ![image-20230416102540641](https://smallway.oss-cn-beijing.aliyuncs.com/%7BY%7D%7BM%7D%7BD%7D-%7Brand%7Dimage-20230416102540641.png)
 
@@ -36,7 +36,7 @@ categories:
 
 依赖文件如下
 
-```
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -137,7 +137,7 @@ categories:
 
 编写Scala代码EltUtil.scala类
 
-```
+```scala
 import org.apache.spark.sql._
 import org.apache.spark.sql.jdbc.{ClickHouseDialect, JdbcDialects}
 
@@ -284,7 +284,7 @@ object EltUtil {
 
 在主方法中调用即可
 
-```
+```scala
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.lit
 

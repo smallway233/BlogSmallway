@@ -1,7 +1,7 @@
 ---
 title: "Nginx动态反向代理BeatSaver网站"
 createTime: 2024-01-25 14:14:46
-permalink: /blog/nginx动态反向代理beatsaver网站/
+permalink: /blog/nginx-reverse-proxy-beatsaver/
 ---
 
 前言
@@ -27,29 +27,31 @@ permalink: /blog/nginx动态反向代理beatsaver网站/
 
 步骤如下
 
-1.添加站点
+1. 添加站点
 
 ![image-20240125134806135](https://smallway.oss-cn-beijing.aliyuncs.com/image-20240125134806135.png)
 
-2.设置网站的域名，PHP版本选择纯静态
+2. 设置网站的域名，PHP版本选择纯静态
 
 ![image-20240125135625045](https://smallway.oss-cn-beijing.aliyuncs.com/image-20240125135625045.png)
 
-3.点击设置
+3. 点击设置
 
 ![image-20240125135717909](https://smallway.oss-cn-beijing.aliyuncs.com/image-20240125135717909.png)
 
-4.选择反向代理，添加反向代理
+4. 选择反向代理，添加反向代理
 
 ![image-20240125135808531](https://smallway.oss-cn-beijing.aliyuncs.com/image-20240125135808531.png)
 
-5.代理名称随便起，目标URL填写到\[[https://beatsaver.com/api/search/text/](https://beatsaver.com/api/search/text/)\]
+5. 代理名称随便起，目标URL填写到 `https://beatsaver.com/api/search/text/`
 
+::: tip
 为什么没有0？往下看
+:::
 
 ![image-20240125140238111](https://smallway.oss-cn-beijing.aliyuncs.com/image-20240125140238111.png)
 
-6点击提交，点击配置文件
+6. 点击提交，点击配置文件
 
 ![image-20240125140409782](https://smallway.oss-cn-beijing.aliyuncs.com/image-20240125140409782.png)
 
@@ -70,4 +72,3 @@ permalink: /blog/nginx动态反向代理beatsaver网站/
 **1** *(2024-03-22 15:19:17)*:
 
 > 好
-

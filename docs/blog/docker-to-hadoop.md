@@ -14,7 +14,7 @@ categories:
 
 或者使用如下指令
 
-```
+```bash
 yum install docker -y
 ```
 
@@ -26,7 +26,7 @@ yum install docker -y
 
 ## 启动docker服务
 
-```
+```bash
 systemctl start docker
 ```
 
@@ -38,7 +38,7 @@ systemctl start docker
 
 使用如下命令
 
-```
+```bash
 docker pull centos:7.9.2009
 ```
 
@@ -46,7 +46,7 @@ docker pull centos:7.9.2009
 
 ## 拉取完毕后检验是否拉取成功
 
-```
+```bash
 docker image ls
 ```
 
@@ -56,17 +56,17 @@ docker image ls
 
 ## 紧接着我们开始运行这个容器
 
-```
+```bash
 docker run -itd --name master -p 60001:22 --privileged centos:7.9.2009 /usr/sbin/init
 ```
 
-注意！！！
+::: danger 注意
+`--name` 后的 `master` 为你给这个容器起的名字
 
-\--name后的master为你给这个容器起的名字
+`-p 60001:22` 表示将这个Centos系统的22端口映射到宿主机的60001端口上
 
-\-p 60001:22表示将这个Centos系统的22端口映射到宿主机的60001端口上
-
-\--privileged 表示提权，从而使容器拥有特权操作权限
+`--privileged` 表示提权，从而使容器拥有特权操作权限
+:::
 
 ![](https://smallway.oss-cn-beijing.aliyuncs.com/%7BY%7D%7BM%7D%7BD%7D-%7Brand%7Dimage-20230501165311810.png)
 
@@ -74,7 +74,7 @@ docker run -itd --name master -p 60001:22 --privileged centos:7.9.2009 /usr/sbin
 
 ## 我们现在通过使用如下命令进入容器，对容器进行配置
 
-```
+```bash
 docker exec -it master /bin/bash
 ```
 
@@ -82,7 +82,7 @@ docker exec -it master /bin/bash
 
 ## 我们希望可以通过第三方ssh工具去连接这个Docker容器，所以我们还需要在其中安装对应的组件
 
-```
+```bash
 yum install -y openssh-server openssh-clients net-tools.x86_64
 ```
 
@@ -94,13 +94,13 @@ yum install -y openssh-server openssh-clients net-tools.x86_64
 
 ## 安装完成后，我们需要重启ssh服务，使其工作
 
-```
+```bash
 systemctl restart sshd
 ```
 
 ## 距离可以使用ssh工具还差最后一步——改密码
 
-```
+```bash
 passwd root
 ```
 
@@ -122,4 +122,3 @@ passwd root
 **哈哈** *(2023-05-01 17:07:06)*:
 
 > 不错不错
-

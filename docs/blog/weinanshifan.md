@@ -171,15 +171,15 @@ if __name__ == "__main__":
 
 * * *
 
-### [](https://github.com/smallway233/Weinan-Normal-University-wechat-daily-sign-in#%E4%BB%A5%E4%B8%8B%E6%BC%94%E7%A4%BA%E5%9D%87%E4%BD%BF%E7%94%A8%E5%8F%A6%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%E6%88%91%E5%9C%A8%E6%A0%A1%E5%9B%AD%E6%BC%94%E7%A4%BA%E5%8E%9F%E7%90%86%E4%B8%BA%E4%B8%80%E8%87%B4)以下演示均使用另一个项目”我在校园演示“，原理为一致
+### 以下演示均使用另一个项目”我在校园演示“，原理为一致
 
-* * *
+---
 
-### [](https://github.com/smallway233/Weinan-Normal-University-wechat-daily-sign-in#-%E5%9B%9B%E9%98%BF%E9%87%8C%E4%BA%91%E5%87%BD%E6%95%B0)\### 四、阿里云函数
+### 四、阿里云函数
 
 注册过程就不再赘述，注册完记得完成实名认证，这里给出阿里云官网链接：[阿里云(aliyun.com)](https://www.aliyun.com/)
 
-#### [](https://github.com/smallway233/Weinan-Normal-University-wechat-daily-sign-in#1%E4%BD%BF%E7%94%A8%E4%BA%91%E5%87%BD%E6%95%B0)1.使用云函数
+#### 1.使用云函数
 
 进入阿里云先登录，搜索`函数计算FC`
 

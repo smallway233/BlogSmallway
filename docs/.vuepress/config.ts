@@ -12,8 +12,15 @@
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defineUserConfig } from 'vuepress'
 import { plumeTheme } from 'vuepress-theme-plume'
+import { mediumZoomPlugin } from '@vuepress/plugin-medium-zoom'
 
 export default defineUserConfig({
+  plugins: [
+    mediumZoomPlugin({
+      selector: '[data-zoomable]',
+      delay: 300,
+    }),
+  ],
   base: '/',
   lang: 'zh-CN',
   locales: {

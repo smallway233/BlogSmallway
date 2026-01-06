@@ -10,23 +10,23 @@ categories:
 
 # 通过Vue操作echarts
 
-## 1.首先创建一个容器
+## 首先创建一个容器
 
-```
+```html
 <div ref="chart" style="width: 400px; height: 400px"></div>
 ```
 
 _此时创建了一个长宽都为400px的容器，且容器名为'chart'_
 
-## 2.导入echarts
+## 导入echarts
 
-```
+```javascript
 import * as echarts from "echarts"
 ```
 
-## 3.在钩子（methods()）中定义函数
+## 在钩子（methods()）中定义函数
 
-```
+```javascript
 methods: {
     // 引用钩子
     initChart() {
@@ -59,7 +59,7 @@ methods: {
 
 ## 在钩子中调用 函数
 
-```
+```javascript
 mounted() {
     this.initChart();
     // 调用函数
@@ -68,7 +68,7 @@ mounted() {
 
 ## 完整的代码为
 
-```
+```vue
 <template>
   <div ref="chart" style="width: 400px; height: 400px"></div>
   <!-- 创建一个长宽为400px的容器 -->

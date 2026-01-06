@@ -13,6 +13,7 @@ tags:
 
 # 🔔主要功能
 
+::: tip 功能列表
 ❗直接使用VR终端下载BS官网的曲包，并一键导入至游戏中，实现快速游玩的目的。不需要使用电脑等其他设备导入歌曲。
 
 目前具体功能如下：
@@ -25,31 +26,38 @@ tags:
 *   曲包音频预览
 *   玩家推荐曲包下载
 *   比赛详情功能
+:::
 
 ![](https://smallway.oss-cn-beijing.aliyuncs.com/image-1024x579.png)
 
 # 📢公告
 
+::: warning 公告
 如果你有更好的想法，或者对该软件有任何建议，请移步至Bug反馈区
 
 [光团助手-问题及建议反馈页面 | 小白的博客 (smallway.top)](https://www.smallway.top/index.php/lightband-assistant.html)
 
 或者加入我们的QQ群来骂我😓
+:::
 
 ![](https://smallway.oss-cn-beijing.aliyuncs.com/image-20231004205446442.png)
 
 ## 目前立项
 
+::: tip 待办事项
 *   代码搜歌模式
 *   完善曲包整理算法
 *   增加比赛详情功能，随时随地查看当前比赛名次
+:::
 
 ## ✖️已知BUG
 
+::: danger BUG列表
 *   部分歌曲无法下载，即卡在准备界面
 *   只能搜索到一部分歌曲，无法搜索到更多歌曲
 *   已知出现部分闪退情况
 *   下载的歌曲无法进行多人游戏模式
+:::
 
 ## ✔更新
 
