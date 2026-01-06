@@ -31,7 +31,7 @@ export default defineUserConfig({
 
   head: [
     // 配置站点图标
-    ['link', { rel: 'icon', type: 'image/png', href: 'https://theme-plume.vuejs.press/favicon-32x32.png' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/plume.svg' }],
   ],
 
   bundler: viteBundler(),
@@ -39,7 +39,7 @@ export default defineUserConfig({
 
   theme: plumeTheme({
     /* 添加您的部署域名, 有助于 SEO, 生成 sitemap */
-    // hostname: 'https://your_site_url',
+    hostname: 'https://blog.smallway.top',
 
     /* 文档仓库配置，用于 editLink */
     // docsRepo: '',
@@ -152,17 +152,17 @@ export default defineUserConfig({
      * 评论 comments
      * @see https://theme-plume.vuejs.press/guide/features/comments/
      */
-    comment: {
-      provider: 'Artalk', // "Artalk" | "Giscus" | "Twikoo" | "Waline"
-      comment: true,
-      repo: '',
-      repoId: '',
-      category: '',
-      categoryId: '',
-      mapping: 'pathname',
-      reactionsEnabled: true,
-      inputPosition: 'top',
-    },
+    // comment: {
+    //   provider: 'Artalk', // "Artalk" | "Giscus" | "Twikoo" | "Waline"
+    //   comment: true,
+    //   repo: '',
+    //   repoId: '',
+    //   category: '',
+    //   categoryId: '',
+    //   mapping: 'pathname',
+    //   reactionsEnabled: true,
+    //   inputPosition: 'top',
+    // },
 
     /**
      * 资源链接替换
